@@ -3,6 +3,7 @@
     <div class="card">
 
        <div class="card-title p-2">
+        
 
         </div>
         <div class="card-body">
@@ -18,7 +19,7 @@
            @endisset
 
           @csrf
-              <label for="">Nama Kategori</label>
+              <label for="">Nama Produk</label>
               <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" 
               placeholder="Nama kategori" value="{{ isset($produk) ? $produk->name : old('name') }}">
                 @error('name')

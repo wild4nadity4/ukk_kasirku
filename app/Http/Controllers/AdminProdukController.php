@@ -13,11 +13,14 @@ class AdminProdukController extends Controller
     {
         //
         //die('masuk');
-        $data =[
+
+        $data = [
             'title'   => 'Manajemen Produk',
-            'produk'   => Produk::paginate(3),
-            'content' => 'admin/produk/index'
+            'produk'   => Produk::paginate(10),
+            'content' => 'admin/produk/index',
+            'kategori_id' => Kategori::all(),
         ];
+        // dd($data);
         return view('admin.layouts.wrapper', $data);
     }
 
@@ -27,7 +30,7 @@ class AdminProdukController extends Controller
     public function create()
     {
         //
-        $data =[
+        $data = [
             'title'   => ' Tambah Produk',
             'kategori' => kategori::get(),
             'content' => 'admin/produk/create'
@@ -56,13 +59,13 @@ class AdminProdukController extends Controller
             $storage = 'uploads/images/';
             $gambar->move($storage, $file_name);
             $data['gambar'] = $storage . $file_name;
-        }else{
+        } else {
             $data['gambar'] = null;
         }
 
         Produk::create($data);
-        Alert::success('suskses','Data Berhasil Ditambahkan');
-        return redirect()->back();
+        Alert::success('suskses', 'Data Berhasil Ditambahkan');
+        return redirect('admin/produk');
     }
 
     /**
@@ -79,7 +82,7 @@ class AdminProdukController extends Controller
     public function edit(string $id)
     {
         //
-        $data =[
+        $data = [
             'title'   => ' Tambah Produk',
             'produk' => Produk::find($id),
             'kategori' => kategori::get(),
@@ -94,7 +97,7 @@ class AdminProdukController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $produk= Produk::find($id);
+        $produk = Produk::find($id);
         $data = $request->validate([
             'name' => 'required',
             'kategori_id' => 'required',
@@ -109,13 +112,13 @@ class AdminProdukController extends Controller
             $storage = 'uploads/images/';
             $gambar->move($storage, $file_name);
             $data['gambar'] = $storage . $file_name;
-        }else{
+        } else {
             $data['gambar'] = $produk->gambar;
         }
 
         $produk->update($data);
-        Alert::success('suskses','Data Berhasil DiEdit');
-        return redirect()->back();
+        Alert::success('suskses', 'Data Berhasil DiEdit');
+        return redirect('admin/produk');
     }
 
     /**
@@ -124,14 +127,13 @@ class AdminProdukController extends Controller
     public function destroy(string $id)
     {
         //
-        $produk= Produk::find($id);
+        $produk = Produk::find($id);
 
-        if ($produk->gambar != null)  {
+        if ($produk->gambar != null) {
             unlink($produk->gambar);
         }
         $produk->delete();
-        Alert::success('suskses','Data Berhasil DiHapus ');
+        Alert::success('suskses', 'Data Berhasil DiHapus ');
         return redirect()->back();
-
     }
 }

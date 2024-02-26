@@ -5,7 +5,7 @@
        <div class="card-title p-2">
 
         </div>
-        <div class="card-body">
+        <div class="card-body bg-Alice Blue">
 
           <h5><b>{{ $title }}</b></h5>
 

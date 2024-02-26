@@ -17,7 +17,7 @@ class AdminKategoriController extends Controller
         //die('masuk');
         $data =[
             'title'   => 'Manajemen Kategori',
-            'kategori'   => kategori::paginate(3),
+            'kategori'   => kategori::paginate(10),
             'content' => 'admin/kategori/index'
         ];
         return view('admin.layouts.wrapper', $data);
@@ -48,7 +48,7 @@ class AdminKategoriController extends Controller
         ]);
         kategori::create($data);
         Alert::success('suskses','Data Berhasil Ditambahkan');
-        return redirect()->back();
+        return redirect('admin/kategori');
     }
 
     /**
@@ -86,7 +86,7 @@ class AdminKategoriController extends Controller
         ]);
         $kategori->update($data);
         Alert::success('suskses','Data Berhasil DiEdit');
-        return redirect()->back();
+        return redirect('admin/kategori');
     }
 
     /**
